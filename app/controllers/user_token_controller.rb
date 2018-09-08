@@ -9,7 +9,8 @@ class UserTokenController < ApplicationController
     user = User.new(auth_params)
     if p user.save
       auth_token = Knock::AuthToken.new(payload: { sub: user.id })
-      render json: { user: user, auth_token: auth_token.token }
+      response.headers['Authorization'] = "#{auth_token.token}"
+      render json: { user: user }
     else
       render json: { errors: user.errors }, status: :unprocessable_entity
     end
