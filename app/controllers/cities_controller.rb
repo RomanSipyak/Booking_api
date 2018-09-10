@@ -1,6 +1,5 @@
 class CitiesController < ApplicationController
-  def new
-  end
+
 
   def create
   end
@@ -8,10 +7,10 @@ class CitiesController < ApplicationController
   def update
   end
 
-  def edit
+  def destroy
   end
 
-  def destroy
+  def show
   end
 
   def index
@@ -19,6 +18,5 @@ class CitiesController < ApplicationController
     render json: cities
   end
 
-  def show
-  end
+
 end

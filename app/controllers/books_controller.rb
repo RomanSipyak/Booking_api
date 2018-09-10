@@ -1,16 +1,11 @@
 class BooksController < ApplicationController
-  def new
-    booking = Booking.new(booking_params[:item_id])
-    render json: booking
-  end
-
 
   def update
     @booking = Book.find(params[:id])
     if @booking.update(booking_params)
       render json: @booking
     else
-      render json: { errors: @booking.errors }, status: :unprocessable_entity
+      render json: {errors: @booking.errors}, status: :unprocessable_entity
     end
   end
 
@@ -38,8 +33,12 @@ class BooksController < ApplicationController
     if booking.save
       render json: @booking
     else
-      render json: { errors: @booking.errors }, status: :unprocessable_entity
+      render json: {errors: @booking.errors}, status: :unprocessable_entity
     end
+  end
+
+  def show
+
   end
 
   private

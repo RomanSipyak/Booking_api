@@ -1,6 +1,4 @@
 class CategoriesController < ApplicationController
-  def new
-  end
 
   def create
   end
@@ -8,8 +6,6 @@ class CategoriesController < ApplicationController
   def update
   end
 
-  def edit
-  end
 
   def destroy
   end
