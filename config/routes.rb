@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   get '/items/my', to: 'items#my'
+  get '/items/all', to: 'items#index_all'
   resources :items, only: [:create,:update,:destroy,:show,:index] do
     resources :books
     resources :reviews

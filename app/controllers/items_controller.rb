@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
-
-
+  # TODO :  Add a good status all
+  before_action :authenticate_user, only: [:create, :my, :update, :index, :destroy]
+  # TODO :  Postman complite
   def create
     @item = Item.new(item_params)
     @item.user = current_user
@@ -10,20 +11,29 @@ class ItemsController < ApplicationController
       render json: { errors: @item.errors }, status: :unprocessable_entity
     end
   end
-
+  # TODO :  Postman complite
   def update
     @item = Item.find(params[:id])
-    if @item.update(item_params)
-      render json: @item
+    if @item.user == current_user
+      if @item.update(item_params)
+        render json: @item
+      else
+        render json: { errors: @item.errors }, status: :unprocessable_entity
+      end
     else
-      render json: { errors: @item.errors }, status: :unprocessable_entity
-    end
+      render json: { errors: "you can't do it" }, status: :unprocessable_entity
+      end
   end
-
+  # TODO :  Postman complite
   def destroy
     @item = Item.find(params[:id])
+    if @item.user == current_user
+    @item = Item.find(params[:id])
     @item.destroy
-    render status: :ok
+    render json: { status: :ok }, status: :ok
+    else
+      render json: { errors: "you can't do it" }, status: :unprocessable_entity
+    end
   end
 
   def index
@@ -38,12 +48,25 @@ class ItemsController < ApplicationController
       render json: @items
     end
   end
-
+  
+  # TODO :  Postman complite
+  def index_all
+    if params[:filter]
+      params[:by_title].strip!
+      @items = Item.book_interval(container_time[:start_booking], container_time[:end_booking])
+                   .filter(params.slice(%i[by_title by_city by_category]))
+      render json: @items
+    else
+      @items = Item.all
+      render json: @items
+    end
+  end
+  # TODO :  Postman complite
   def my
     @items = Item.where(user: current_user)
     render json: @items
   end
-
+  # TODO :  Postman complite
   def show
     @item = Item.find(params[:id])
     render json: @item
@@ -52,7 +75,7 @@ class ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:description, :category_id, :price, :image)
+    params.require(:item).permit(:description, :category_id, :price, :image, :name)
   end
 
   def container_time
