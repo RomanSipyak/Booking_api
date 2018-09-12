@@ -2,12 +2,14 @@ Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   get '/items/my', to: 'items#my'
   get '/items/all', to: 'items#index_all'
+  resources :books, only: [:update,:show]
   resources :items, only: [:create,:update,:destroy,:show,:index] do
-    resources :books
-    resources :reviews
+    resources :books, only: [:create,:update,:destroy,:show,:index]
+    resources :reviews, only: [:create,:update,:destroy,:show,:index]
   end
   resources :users do
-    resources :reviews
+    resources :reviews, only: [:create,:update,:destroy,:show,:index]
+    resources :books, only: [:index]
   end
   resources :cities, only: [:create,:update,:destroy,:show,:index]
   resources :categories, only: [:create,:update,:destroy,:show,:index]

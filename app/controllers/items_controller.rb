@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   # TODO :  Add a good status all
   before_action :authenticate_user, only: [:create, :my, :update, :index, :destroy]
-  # TODO :  Postman complite
+  # TEST :  Postman complite
   def create
     @item = Item.new(item_params)
     @item.user = current_user
@@ -11,7 +11,7 @@ class ItemsController < ApplicationController
       render json: { errors: @item.errors }, status: :unprocessable_entity
     end
   end
-  # TODO :  Postman complite
+  # TEST :  Postman complite
   def update
     @item = Item.find(params[:id])
     if @item.user == current_user
@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
       render json: { errors: "you can't do it" }, status: :unprocessable_entity
       end
   end
-  # TODO :  Postman complite
+  # TEST :  Postman complite
   def destroy
     @item = Item.find(params[:id])
     if @item.user == current_user
@@ -48,8 +48,8 @@ class ItemsController < ApplicationController
       render json: @items
     end
   end
-  
-  # TODO :  Postman complite
+
+  # TEST :  Postman complite
   def index_all
     if params[:filter]
       params[:by_title].strip!
@@ -61,12 +61,12 @@ class ItemsController < ApplicationController
       render json: @items
     end
   end
-  # TODO :  Postman complite
+  # TEST :  Postman complite
   def my
     @items = Item.where(user: current_user)
     render json: @items
   end
-  # TODO :  Postman complite
+  # TEST :  Postman complite
   def show
     @item = Item.find(params[:id])
     render json: @item
