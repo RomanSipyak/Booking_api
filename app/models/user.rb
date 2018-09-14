@@ -23,4 +23,9 @@ class User < ApplicationRecord
   validates_presence_of :username
   validates_uniqueness_of :email
   validates_uniqueness_of :username
+  users = Arel::Table.new(:users)
+  items = Arel::Table.new(:items)
+
+
+  scope :users_count_reviews_with_raiting, ->(raiting) { users.join(items).where(items[:rating].eq(raiting)).count }
 end
