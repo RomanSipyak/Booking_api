@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :book do
-    StartBooking ""
-    EndBooking ""
-    TotalPrice ""
-    item_id ""
-    user_id 1
+    start_booking { DateTime.current + 2.days }
+    end_booking { DateTime.current + 10.days }
+    item { create(:random_item) }
+    user { create(:random_user) }
   end
 end

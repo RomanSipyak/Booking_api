@@ -197,5 +197,5 @@ resource 'Items' do
       expect(response_body).to eq(ActiveModelSerializers::SerializableResource.new(item).to_json)
     end
   end
-  
+
 end

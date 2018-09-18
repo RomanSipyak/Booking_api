@@ -15,10 +15,10 @@ class BooksController < ApplicationController
     end
   end
 
-  # TEST :  Postman complite
+  # TEST :  Postman complite and rspec
   def destroy
     booking = Book.find(params[:id])
-    if (booking.user = current_user)
+    if booking.user == current_user
       booking.destroy
       render json: {status: :ok}, status: :ok
     else
@@ -37,7 +37,7 @@ class BooksController < ApplicationController
     end
   end
 
-  # TEST :  Postman complite
+  # TEST :  Postman complite and rspec
   def create
     booking = Book.new(booking_params)
     item = Item.find(params[:item_id])
@@ -52,7 +52,7 @@ class BooksController < ApplicationController
     end
   end
 
-  # TEST :  Postman complite
+  # TEST :  Postman complite  and rspec
   def show
     booking = Book.find(params[:id])
     render json: booking
