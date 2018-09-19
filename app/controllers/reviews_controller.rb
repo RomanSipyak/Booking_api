@@ -37,10 +37,10 @@ class ReviewsController < ApplicationController
       end
     elsif review_params[:reviewcontainer_type] == 'Item'
       review = CreateReview.new.call(review_params)
-      if review.value!.save
+      if review.value_or(false)
         render json: review.value!
       else
-        render json: {errors: review.value!.errors}, status: :unprocessable_entity
+        render json: { errors: review.failure }, status: :unprocessable_entity
       end
     end
   end

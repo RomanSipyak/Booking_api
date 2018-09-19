@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'rspec_api_documentation'
 require 'rspec_api_documentation/dsl'
 
-resource 'Items' do
+resource 'Books' do
   header 'Content-Type', 'application/json'
   header 'Accept', 'application/json'
 
@@ -57,7 +57,6 @@ resource 'Items' do
 
 
   get '/items/:item_id/books' do
-
     let!(:random_user1) {create(:random_user, username: Faker::Name.unique.name)}
     let!(:random_user2) {create(:random_user, username: Faker::Name.unique.name)}
     let!(:item) {create(:random_item)}
@@ -72,11 +71,11 @@ resource 'Items' do
 
     let(:item_id) {item.id}
 
-    example_request 'Create book for item but start > end' do
+    example_request 'books for item' do
       expect(response_body).to eq(ActiveModelSerializers::SerializableResource.new(book).to_json)
     end
 
-    end
+  end
 
   get '/items/:item_id/books/:id' do
 
@@ -93,7 +92,7 @@ resource 'Items' do
     example_request 'Show book' do
       expect(response_body).to eq(ActiveModelSerializers::SerializableResource.new(book).to_json)
     end
-    end
+  end
 
   delete '/items/:item_id/books/:id' do
 
@@ -110,7 +109,7 @@ resource 'Items' do
     example_request 'Destroy book' do
       expect(status).to eq(200)
     end
-    end
+  end
   delete '/items/:item_id/books/:id' do
 
     let!(:random_user1) {create(:random_user, username: Faker::Name.unique.name)}
@@ -144,7 +143,7 @@ resource 'Items' do
 
     let(:item_id) {item.id}
 
-    example_request 'Create book for item but start > end' do
+    example_request '' do
       expect(response_body).to eq(ActiveModelSerializers::SerializableResource.new(book2).to_json)
     end
   end
