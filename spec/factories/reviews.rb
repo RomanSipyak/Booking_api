@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :review do
     comment "MyString"
-    user_id 1
+    rating 5
   end
 end

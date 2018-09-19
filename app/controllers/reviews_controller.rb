@@ -15,6 +15,7 @@ class ReviewsController < ApplicationController
     end
   end
 
+# TEST :  Postman complite and rspec
   def destroy
     review = Review.find(params[:id])
     if review.user == current_user
@@ -26,7 +27,7 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # TEST :  Postman complite
+# TEST :  Postman complite and rspec
   def create
     review = CreateReview.new.call(review_params.merge(user: current_user))
     if review.value_or(false)
@@ -36,7 +37,7 @@ class ReviewsController < ApplicationController
     end
   end
 
-  # TEST :  Postman complite
+# TEST :  Postman complite
   def index
     res = StatisticReview.new.call(params)
     if params[:user_id]
