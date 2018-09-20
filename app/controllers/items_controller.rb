@@ -8,9 +8,10 @@ class ItemsController < ApplicationController
     if item.save
       render json: item
     else
-      render json: { errors: item.errors }, status: :unprocessable_entity
+      render json: {errors: item.errors}, status: :unprocessable_entity
     end
   end
+
   # TEST :  Postman complite and rspec
   def update
     item = Item.find(params[:id])
@@ -18,35 +19,35 @@ class ItemsController < ApplicationController
       if item.update(item_params)
         render json: item
       else
-        render json: { errors: item.errors }, status: :unprocessable_entity
+        render json: {errors: item.errors}, status: :unprocessable_entity
       end
     else
-      render json: { errors: "you can't do it" }, status: :unprocessable_entity
-      end
+      render json: {errors: "you can't do it"}, status: :unprocessable_entity
+    end
   end
+
   # TEST :  Postman complite and rspec
   def destroy
     item = Item.find(params[:id])
     if item.user == current_user
-    item = Item.find(params[:id])
-    item.destroy
-    render json: { status: :ok }, status: :ok
+      item = Item.find(params[:id])
+      item.destroy
+      render json: {status: :ok}, status: :ok
     else
-      render json: { errors: "you can't do it" }, status: :unprocessable_entity
+      render json: {errors: "you can't do it"}, status: :unprocessable_entity
     end
   end
+
   # TEST :  Postman complite and rspec. Filter not tested
   def index
+    items = Item.all
     if params[:filter]
       params[:by_title].strip!
-      items = Item.book_interval(container_time[:start_booking], container_time[:end_booking])
-                   .filter(params.slice(%i[by_title by_city by_category]))
-                   .where.not(user: current_user)
-      render json: items
-    else
-      items = Item.where.not(user: current_user)
-      render json: items
+      items = items.book_interval(container_time[:start_booking], container_time[:end_booking])
+                  .filter(params.slice(%i[by_title by_city by_category]))
     end
+    items = items.where.not(user: current_user)
+    render json: items
   end
 
   # TEST :  Postman complite and rspec. Filter not tested
@@ -54,18 +55,20 @@ class ItemsController < ApplicationController
     if params[:filter]
       params[:by_title].strip!
       items = Item.book_interval(container_time[:start_booking], container_time[:end_booking])
-                   .filter(params.slice(%i[by_title by_city by_category]))
+                  .filter(params.slice(%i[by_title by_city by_category]))
       render json: items
     else
       items = Item.all
       render json: items
     end
   end
+
   # TEST :  Postman complite and rspec.
   def my
     items = Item.where(user: current_user)
     render json: items
   end
+
   # TEST :  Postman complite and rspec.
   def show
     item = Item.find(params[:id])

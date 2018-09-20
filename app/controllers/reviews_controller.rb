@@ -42,10 +42,10 @@ class ReviewsController < ApplicationController
     res = StatisticReview.new.call(params)
     if params[:user_id]
       user = User.includes(:reviews).find(params[:user_id])
-      render json: {statistic: res.value!, user: user, reviews: user.reviews}
+      render json: {statistic: res.value!, reviews: user.reviews}
     elsif params[:item_id]
       item = Item.includes(:user).find(params[:item_id])
-      render json: {statistic: res.value!, item: item, reviews: item.reviews}
+      render json: {statistic: res.value!, reviews: item.reviews}
     end
   end
 
