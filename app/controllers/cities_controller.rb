@@ -1,7 +1,7 @@
 class CitiesController < ApplicationController
 
   def index
-    cities = city.all
+    cities = City.all
     render json: cities
   end
 
