@@ -14,8 +14,8 @@ class User < ApplicationRecord
   validates_confirmation_of :password, allow_nil: true, allow_blank: false
 
   before_validation do
-    (self.email = email.to_s.downcase) &&
-      (self.username = username.to_s.downcase)
+    self.email = email.to_s.downcase
+    self.username = username.to_s.downcase
   end
 
   # Make sure email and username are present and unique.
