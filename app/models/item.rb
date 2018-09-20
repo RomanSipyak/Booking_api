@@ -22,9 +22,9 @@ class Item < ApplicationRecord
       .where(users: { city_id: city_ids })
   }
   scope :by_category, ->(category_ids) {
-    joins(:category)
-      .where(categories: { id: category_ids })
+    where(category_id: category_ids)
   }
+
   scope :by_title, ->(str) { where(arel_table[:name].matches("%#{str}%")) }
 
   def self.book_interval(term_start, term_end)
