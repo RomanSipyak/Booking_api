@@ -4,7 +4,7 @@ class User < ApplicationRecord
   belongs_to :city, optional: true
   has_many :items, dependent: :destroy
   has_many :books, dependent: :destroy
-  has_many :authored_reviews, class_name: 'Review'
+  has_many :authored_reviews, class_name: 'Review',dependent: :destroy
 
   # Necessary to authenticate.
   has_secure_password
