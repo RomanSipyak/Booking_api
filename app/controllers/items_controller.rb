@@ -65,7 +65,7 @@ class ItemsController < ApplicationController
 
   # TEST :  Postman complite and rspec.
   def my
-    items = Item.where(user: current_user)
+    items = current_user.items
     render json: items
   end
 
