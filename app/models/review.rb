@@ -8,5 +8,8 @@ class Review < ApplicationRecord
   def self.average_rating
     average(:rating)
   end
-  scope :count_reviews_with_raiting, ->(raiting) { where(arel_table[:rating].eq(raiting)).count }
+  
+  def count_with_rating(rating)
+    where(arel_table[:rating].eq(raiting)).count
+  end
 end
