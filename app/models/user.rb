@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   include ::ImageUploader::Attachment.new(:image)
-  has_many :reviews, as: :reviewcontainer
+  has_many :reviews, as: :reviewcontainer, dependent: :destroy
   belongs_to :city, optional: true
   has_many :items, dependent: :destroy
   has_many :books, dependent: :destroy
