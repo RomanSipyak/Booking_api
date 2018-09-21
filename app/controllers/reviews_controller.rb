@@ -17,8 +17,8 @@ class ReviewsController < ApplicationController
 
 # TEST :  Postman complite and rspec
   def destroy
+    review = Review.find(params[:id])
     if review.user == current_user
-      review = Review.find(params[:id])
       review.destroy
       render json: {status: :ok}, status: :ok
     else
