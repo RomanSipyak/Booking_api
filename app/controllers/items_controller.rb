@@ -28,7 +28,6 @@ class ItemsController < ApplicationController
 
   # TEST :  Postman complite and rspec
   def destroy
-    item = Item.find(params[:id])
     if item.user == current_user
       item = Item.find(params[:id])
       item.destroy
