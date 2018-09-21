@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_124619) do
+ActiveRecord::Schema.define(version: 2018_09_21_131723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,12 @@ ActiveRecord::Schema.define(version: 2018_09_21_124619) do
     t.datetime "start_booking"
     t.datetime "end_booking"
     t.float "total_price"
-    t.integer "item_id"
-    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "item_id"
+    t.bigint "user_id"
+    t.index ["item_id"], name: "index_books_on_item_id"
+    t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -36,19 +38,20 @@ ActiveRecord::Schema.define(version: 2018_09_21_124619) do
   create_table "items", force: :cascade do |t|
     t.string "description"
     t.float "price"
-    t.integer "user_id"
-    t.integer "category_id"
     t.string "name"
     t.float "rating", default: 0.0
     t.integer "review_count"
     t.text "image_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "category_id"
+    t.bigint "user_id"
+    t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["user_id"], name: "index_items_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.string "comment"
-    t.integer "user_id"
     t.text "image_data"
     t.date "date"
     t.float "rating"
@@ -56,11 +59,12 @@ ActiveRecord::Schema.define(version: 2018_09_21_124619) do
     t.bigint "reviewcontainer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["reviewcontainer_type", "reviewcontainer_id"], name: "index_reviews_on_reviewcontainer_type_and_reviewcontainer_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.integer "city_id"
     t.string "username"
     t.string "email"
     t.float "rating", default: 0.0
@@ -71,6 +75,14 @@ ActiveRecord::Schema.define(version: 2018_09_21_124619) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.datetime "last_login"
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_users_on_city_id"
   end
 
+  add_foreign_key "books", "items"
+  add_foreign_key "books", "users"
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "users"
+  add_foreign_key "reviews", "users"
+  add_foreign_key "users", "cities"
 end
