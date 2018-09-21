@@ -41,14 +41,7 @@ class UsersController < ApplicationController
   def index
     render json: {status: 200, msg: 'Logged-in'}
   end
-
-  # Call this method to check if the user is logged-in.
-  # If the user is logged-in we will return the user's information.
-  def current
-    current_user.update!(last_login: Time.now)
-    render json: current_user
-  end
-
+  
   private
 
   # Setting up strict parameters for when we add account creation.
